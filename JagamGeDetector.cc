@@ -85,7 +85,7 @@ int main(int argc,char** argv)
       
   // Initialize G4 kernel
   //
-  runManager->Initialize();
+  //runManager->Initialize();
 
   // Get the pointer to the User Interface manager
   //
