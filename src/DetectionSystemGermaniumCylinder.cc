@@ -48,11 +48,15 @@ DetectionSystemGermaniumCylinder::DetectionSystemGermaniumCylinder() :
   this->packing_material            = "G4_Galactic";
   this->copper_material             = "G4_Cu";
 
-  this->crystal_length_z            = 1.5*inch2cm*cm;
+  double length = 0.0419*cm;
+  
+  //this->crystal_length_z            = 1.5*inch2cm*cm;
+  this->crystal_length_z            = length;
   this->crystal_inner_radius 		= 0.25*inch2cm*cm;
   this->crystal_outer_radius 		= 0.75*inch2cm*cm;
 
-  this->crystal_core_length_z          = (1.5)*inch2cm*cm;
+  this->crystal_core_length_z          = length;
+  //this->crystal_core_length_z          = (1.5)*inch2cm*cm;
   this->crystal_core_inner_radius 		= 0.0*cm;
   this->crystal_core_outer_radius 		= 0.25*inch2cm*cm;
 
@@ -121,14 +125,19 @@ G4int DetectionSystemGermaniumCylinder::Build()
 
   G4cout << "BuildCrystalVolume" << G4endl;
   BuildCrystalVolume();      
-  G4cout << "BuildAluminumCanVolume" << G4endl;
-  BuildAluminumCanVolume(); 
-  G4cout << "BuildPackingVolume" << G4endl;
-  BuildPackingVolume();
-  G4cout << "BuildCopperClampVolume" << G4endl;
-  BuildCopperClampVolume();
-  G4cout << "BuildCoreVolume" << G4endl;
-  BuildCoreVolume();
+  
+  //G4cout << "BuildAluminumCanVolume" << G4endl;
+  //BuildAluminumCanVolume(); 
+  
+  //G4cout << "BuildPackingVolume" << G4endl;
+  //BuildPackingVolume();
+  
+  //G4cout << "BuildCopperClampVolume" << G4endl;
+  //BuildCopperClampVolume();
+  
+  //G4cout << "BuildCoreVolume" << G4endl;
+  //BuildCoreVolume();
+  
   return 1;
 }
 
@@ -161,7 +170,8 @@ G4int DetectionSystemGermaniumCylinder::BuildCrystalVolume()
 
   // Define rotation and movement objects
   G4ThreeVector direction 	= G4ThreeVector(0,0,1);
-  G4double z_position		= ( (can_front_lid_thickness + packing_front_lid_thickness) - (can_back_lid_thickness + packing_back_lid_thickness) )/2.0;
+  //G4double z_position		= ( (can_front_lid_thickness + packing_front_lid_thickness) - (can_back_lid_thickness + packing_back_lid_thickness) )/2.0;
+  G4double z_position = crystal_length_z/2.;
   G4ThreeVector move 		= z_position * direction;
   G4RotationMatrix* rotate = new G4RotationMatrix;
   

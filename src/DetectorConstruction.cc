@@ -375,22 +375,25 @@ void DetectorConstruction::AddGermaniumCylinder( G4int ndet )
     DetectionSystemGermaniumCylinder* pDetectionSystemGermaniumCylinder = new DetectionSystemGermaniumCylinder();
     pDetectionSystemGermaniumCylinder->Build();
 
-    detectorAngles[0][0] = 90.0;
-    detectorAngles[0][1] = 90.0;
+    //detectorAngles[0][0] = 90.0;
+    //detectorAngles[0][1] = 90.0;
 
     for(G4int detector_number = 0; detector_number < ndet; detector_number++)
     {
-        phi = detectorAngles[detector_number][0]*deg; // Creates a ring in phi plane
-        theta = detectorAngles[detector_number][1]*deg;
-        direction = G4ThreeVector(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta));
-        position = 25.0*cm + (pDetectionSystemGermaniumCylinder->GetDetectorLengthOfUnitsCM()/2.0);
-        offset.setZ(33.54*cm); // offset
+        //phi = detectorAngles[detector_number][0]*deg; // Creates a ring in phi plane
+        //theta = detectorAngles[detector_number][1]*deg;
+        //direction = G4ThreeVector(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta));
+        direction = G4ThreeVector(0,0,1);
+        //position = 25.0*cm + (pDetectionSystemGermaniumCylinder->GetDetectorLengthOfUnitsCM()/2.0);
+        position = (25.000 - 0.008)*cm;
+        //offset.setZ(33.54*cm); // offset
         move = (position * direction) + offset;
+        //move = G4ThreeVector(0,0,0);
 
         G4RotationMatrix* rotate = new G4RotationMatrix;
-        rotate->rotateX(theta);
-        rotate->rotateY(0);
-        rotate->rotateZ(phi+0.5*M_PI);
+        //rotate->rotateX(theta);
+        //rotate->rotateY(0);
+        //rotate->rotateZ(phi+0.5*M_PI);
 
         pDetectionSystemGermaniumCylinder->PlaceDetector(logicWorld, move, rotate, detector_number);
     }
