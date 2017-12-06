@@ -18,13 +18,21 @@
 /DetSys/det/boxThickness 10 cm
 /DetSys/det/boxInnerDimensions 200 200 200 cm
 /DetSys/det/boxMat G4_Pb
-/DetSys/det/addBox
-/DetSys/det/addGeCylinder 2
 
-/control/execute vis.mac
+#/DetSys/det/addBox
+/DetSys/det/addGeCylinder 1
+
+#/control/execute vis.mac
 
 #/gun/particle gamma
-/gun/particle ion
-/gun/ion 86 222 0 0 
-/gun/energy 0 MeV
-/run/beamOn 1
+#/gun/particle ion
+#/gun/ion 86 222 0 0 
+#/gun/energy 46 keV
+
+/gps/particle gamma
+/gps/ang/type iso
+/gps/ang/mintheta 175 deg
+/gps/ang/maxtheta 180 deg
+/gps/energy 46 keV
+
+/run/beamOn 10000000
