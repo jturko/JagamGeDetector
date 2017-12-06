@@ -46,6 +46,8 @@
 #include "G4Geantino.hh"
 #include "Randomize.hh"
 
+#include "G4GeneralParticleSource.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* DC)
@@ -53,6 +55,9 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* DC)
   fParticleGun(0),
   fDetector(DC)
 {
+    fUseGPS = true;
+    fGPS = new G4GeneralParticleSource();
+
     G4int n_particle = 1;
     fParticleGun  = new G4ParticleGun(n_particle);
     //create a messenger for this class
@@ -400,7 +405,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
   //create vertex
   //
-  fParticleGun->GeneratePrimaryVertex(anEvent);
+  if(fUseGPS)   fGPS->GeneratePrimaryVertex(anEvent);
+  else          fParticleGun->GeneratePrimaryVertex(anEvent);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
