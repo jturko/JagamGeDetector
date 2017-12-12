@@ -50,7 +50,7 @@ EventAction::EventAction(RunAction* run, HistoManager* histo)
  fTrackLAbs(0.), fTrackLGap(0.),
  fPrintModulo(0)                             
 {
- fPrintModulo = 100; }
+ fPrintModulo = 1000; }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -64,7 +64,8 @@ void EventAction::BeginOfEventAction(const G4Event* evt)
   evtNb = evt->GetEventID();
   if (evtNb%fPrintModulo == 0)
 //    G4cout << "\n---> Begin of event: " << evtNb << G4endl;
-    printf( " ---> Ev.# %5d\r", evtNb);
+    if(evtNb < 1e6) { printf( " ---> Ev.# %dk\r", evtNb/1000); }
+    else            { printf( " ---> Ev.# %.3fm\r", double(evtNb)/1000000.); }
     G4cout.flush();
 
  // initialisation per event
