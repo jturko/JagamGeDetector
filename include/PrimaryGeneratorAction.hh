@@ -62,7 +62,7 @@ public:
   void SetEfficiencyDirection( G4ThreeVector num ) {effDirection = num; effDirectionBool = true;} ;
   void SetEfficiencyPosition( G4ThreeVector num ) {effPosition = num; effPositionBool = true;} ;
   void SetEfficiencyParticle( G4String val ) {effParticle = val; effParticleBool = true;} ;
-  void SetEfficiencyBOMAB( G4ThreeVector num ) {effBOMABPosition = num; effBOMABBool = true;} ;
+  void SetEfficiencyBOMAB( G4ThreeVector num ) {effBOMABPosition = num; effBOMABBool = true; fUseGPS = false;} ;
 
 private:
   G4ParticleGun*                fParticleGun;  //pointer a to G4 class

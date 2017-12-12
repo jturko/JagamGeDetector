@@ -142,6 +142,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     G4ThreeVector thiseffposition = G4ThreeVector(0.0*mm,0.0*mm,0.0*mm);
 
     if(numberOfDecayingLaBrDetectors != 0) {
+        G4cout << "Decaying LaBr3 (wtf?)" << G4endl;
         G4double crystalRadius    = 2.54*cm;
         G4double crystalLength    = 5.08*cm;
         // The detector material material is LaBr3:Ce. 95% is LaBr3 and 5% is Ce.
@@ -218,7 +219,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
         fParticleGun->SetParticlePosition(thisposition);
         fParticleGun->SetParticleMomentumDirection(thisdirection);
         fParticleGun->SetParticleEnergy(thisenergy);
-    }
+    } // end of decayig LaBr3 detectors
     else if(effEnergy != 0.0) {
         G4ParticleDefinition* effpart;
         if(effParticleBool) {
@@ -239,12 +240,13 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
         G4double effrandcostheta, effrandsintheta, effrandphi;
         G4ThreeVector effdirection;
         if(effDirectionBool) {
+            //G4cout << "effDirectionBool is true" << G4endl;
             effdirection = effDirection;
         }
         else {
-
+            //G4cout << "effDirectionBool is false" << G4endl;
             if(effBOMABBool) {
-
+                //G4cout << "effBOMABBool is true, were doing some calculations..." << G4endl;
                 G4double head_dx = 13.5*cm;
                 G4double head_dy = 18.5*cm;
                 G4double head_dz = 19.5*cm;
@@ -405,8 +407,14 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
   //create vertex
   //
-  if(fUseGPS)   fGPS->GeneratePrimaryVertex(anEvent);
-  else          fParticleGun->GeneratePrimaryVertex(anEvent);
+  if(fUseGPS && !effBOMABBool) {
+        //G4cout << "USING GPS AS PRIMARY GENERATOR" << G4endl;
+        fGPS->GeneratePrimaryVertex(anEvent);
+  }
+  else {          
+        //G4cout << "USING ParticleGun AS PRIMARY GENERATOR (maybe BOMAB?)" << G4endl;
+        fParticleGun->GeneratePrimaryVertex(anEvent);
+  }
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
